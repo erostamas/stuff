@@ -10,18 +10,18 @@ fi
 
 # User specific aliases and functions
 
-RESET="\[\033[00;0m\]"
-YELLOW="\[\033[01;33m\]"
-GOLD="\e[38;5;220m"
-LIGHT_YELLOW="\e[38;5;228m"
-CYAN="\[\033[01;36m\]"
-DARK_GREEN="\e[38;5;36m"
-PURPLE="\[\033[01;35m\]"
-GREEN="\[\033[01;32m\]"
-RED="\[\033[01;31m\]"
-SMILEY="${GREEN}+${RESET}"
-FROWNY="${RED}-${RESET}"
-SELECT="if [ \$? = 0 ]; then echo \"${SMILEY}\"; else echo \"${FROWNY}\"; fi"
+RESET='\[\033[00;0m\]'
+YELLOW='\[\033[01;33m\]'
+GOLD='\[\e[38;5;220m\]'
+LIGHT_YELLOW='\[\e[38;5;228m\]'
+CYAN='\[\033[01;36m\]'
+DARK_GREEN='\[\e[38;5;36m\]'
+PURPLE='\[\033[01;35m\]'
+GREEN='\[\033[01;32m\]'
+RED='\[\033[01;31m\]'
+SMILEY="\001\033[01;32m\002+\001\033[00;0m\002"
+FROWNY="\001\033[01;31m\002-\001\033[00;0m\002"
+SELECT=$(if [ \$? = 0 ]; then echo ${SMILEY}; else echo ${FROWNY}; fi)
 
 git_branch() {
     # -- Finds and outputs the current branch name by parsing the list of
@@ -84,8 +84,8 @@ git_prompt() {
         local state=$(git_status)
         local color=$(git_color $state)
         # Now output the actual code to insert the branch and status
-        echo -e "\x01$color\x02[$branch]\x01\033[00m\x02"  # last bit resets color
+        echo -e "\001$color\002[$branch]\001\033[00m\002"  # last bit resets color
     fi
 }
 
-export PS1="\`${SELECT}\`[${GOLD}\u${RESET}@${DARK_GREEN}\h ${YELLOW}\w${RESET}]\$(git_prompt) ${RESET}"
+export PS1="${SELECT}[${GOLD}\u${RESET}@${DARK_GREEN}\h ${YELLOW}\w${RESET}]\$(git_prompt) ${RESET}"
