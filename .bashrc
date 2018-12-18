@@ -21,7 +21,6 @@ GREEN='\[\033[01;32m\]'
 RED='\[\033[01;31m\]'
 SMILEY="\001\033[01;32m\002+\001\033[00;0m\002"
 FROWNY="\001\033[01;31m\002-\001\033[00;0m\002"
-SELECT=$(if [ \$? = 0 ]; then echo ${SMILEY}; else echo ${FROWNY}; fi)
 
 git_branch() {
     # -- Finds and outputs the current branch name by parsing the list of
@@ -88,4 +87,10 @@ git_prompt() {
     fi
 }
 
-export PS1="${SELECT}[${GOLD}\u${RESET}@${DARK_GREEN}\h ${YELLOW}\w${RESET}]\$(git_prompt) ${RESET}"
+last_result() {
+	if [ $? -eq 0 ]; then echo -e ${SMILEY}; else echo -e ${FROWNY}; fi
+}
+
+export PS1="\$(last_result)[${GOLD}\u${RESET}@${DARK_GREEN}\h ${YELLOW}\w${RESET}]\$(git_prompt) ${RESET}"
+
+alias ll='ls -l'
