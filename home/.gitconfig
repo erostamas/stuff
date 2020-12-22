@@ -1,0 +1,5 @@
+[user]
+	name = Tamas Eros
+	email = tamas.eros1@gmail.com
+[core]
+	excludesfile = /home/erostamas/.gitignore

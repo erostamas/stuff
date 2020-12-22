@@ -93,8 +93,4 @@ last_result() {
 
 export PS1="\$(last_result)[${GOLD}\u${RESET}@${DARK_GREEN}\h ${YELLOW}\w${RESET}]\$(git_prompt) ${RESET}"
 
-if [[ -n "$PS1" ]] && [[ -z "$TMUX" ]] && [[ -n "$SSH_CONNECTION" ]]; then
-    tmux attach-session -t ssh_tmux || tmux -2 new-session -s ssh_tmux
-fi
-
 alias ll='ls -l'
